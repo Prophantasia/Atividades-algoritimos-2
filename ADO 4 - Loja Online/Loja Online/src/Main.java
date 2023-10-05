@@ -45,29 +45,16 @@ public class Main {
 
                 // Processamento
                 LojaOnline lojaOnline = new LojaOnline();
-
                 NotaFiscal notaFiscal = lojaOnline.efetuarCompra(compra);
 
                 // Saida
-                String saidaFinal = "Nota Fiscal\n\n"+"- Cliente"+"\nNome: "+notaFiscal.getCliente().getNome()+"\nEmail: "+notaFiscal.getCliente().getEmail()+"\n";
-                String saidaFinal2 = "\nValor a pagar: ";
-
-                ui.saida(saidaFinal, ui.semIcone);
-
-                for (Item item: notaFiscal.getItem()) {
-                
-                    ui.saida("\n\nNOME DO PRODUTO: "+ item.getNome(), ui.semIcone);
-                    ui.saida("\n\nPREÇO DO PRODUTO: "+ item.getPreco(), ui.semIcone);
-                }
-
-                ui.saida(saidaFinal2, ui.semIcone);
-
-
+                ui.NotaFiscal(notaFiscal, itemLista, compra);
             }
 
             // Sair
             if (opcao == 2)
                 ui.rodar = false;
+
             else
                 ui.saida("Você digitou uma opção inválida!", ui.erroIcone);
         }

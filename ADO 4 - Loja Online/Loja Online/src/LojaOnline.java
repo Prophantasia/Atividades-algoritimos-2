@@ -8,14 +8,30 @@ public class LojaOnline {
 
         notaFiscal.setCliente(compra.getCliente());
         notaFiscal.setCodNota(gerarCodNota());
-        notaFiscal.setTotal(calcularTotal(compra));
+        double totalFinal = calcularTotal(compra);
 
+        if (compra.getFormaPag().equals("pix")) {
+
+            totalFinal -= totalFinal * 0.10;
+            notaFiscal.setTotal(totalFinal);
+            return notaFiscal;
+
+        } else if (compra.getFormaPag().equals("debito")) {
+            
+            totalFinal -= totalFinal * 0.05;
+            notaFiscal.setTotal(totalFinal);
+            return notaFiscal;
+
+        } else
+        
+        notaFiscal.setTotal(totalFinal);
         return notaFiscal;
     }
 
     private double calcularTotal(Compra compra) {
 
-        Item[] item = new Item[compra.getQtdItem()];
+        Item[] item = compra.getCarrinho();
+
         double total = 0;
         double desconto;
 
