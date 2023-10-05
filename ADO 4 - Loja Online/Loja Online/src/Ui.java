@@ -17,8 +17,5 @@ public class Ui {
         Ui ui = new Ui();
         JOptionPane.showMessageDialog(null, mensagem, ui.titulo, tipoMensagem);
     }
-    public void saidaFinal(NotaFiscal notaFiscal, int tipoMensagem) {
-        Ui ui = new Ui();
-        JOptionPane.showMessageDialog(null, "                        Nota fiscal\n", ui.titulo, tipoMensagem);
-    }
+
 }

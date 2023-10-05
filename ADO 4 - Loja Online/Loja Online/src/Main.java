@@ -21,24 +21,24 @@ public class Main {
                 compra.setCupom(ui.entrada("Insira o cupom: ", ui.semIcone));
 
                 compra.setQtdItem(Integer.parseInt(ui.entrada("Quantos itens o cliente comprou: ", ui.semIcone)));
-                Item[] item = new Item[compra.getQtdItem()];
+                Item[] itemLista = new Item[compra.getQtdItem()];
 
                 for (int i = 0; i < compra.getQtdItem(); i++) {
+                    Item item = new Item();
 
-                    String nome = ui.entrada("Nome do item: ", ui.semIcone);
-                    double preco = Double.parseDouble(ui.entrada("Preco do item ", ui.semIcone));
+                    item.setNome(ui.entrada("Nome do item: ", ui.semIcone));
+                    item.setPreco(Double.parseDouble(ui.entrada("Preco do item: ", ui.semIcone)));
 
-                    // POR ALGUM MOTIVO O PROGRAMA PARA
-                    // item[i].setNome(nome);
-                    // item[i].setPreco(preco);
+                    itemLista[i] = item;
                 }
 
                 compra.setCliente(cliente);
-                compra.setCarrinho(item);
+                compra.setCarrinho(itemLista);
 
                 compra.setFormaPag(ui.entrada(
                         "Formas de pagamento: \n\n- pix\n- credito\n- debito\n\nSelecione a forma de pagamento",
                         ui.semIcone));
+
                 if (compra.getFormaPag().equals("credito")) {
                     compra.setParcelas(Integer.parseInt(ui.entrada("Digite a quantidade de parcelas: ", opcao)));
                 }
@@ -48,7 +48,20 @@ public class Main {
 
                 NotaFiscal notaFiscal = lojaOnline.efetuarCompra(compra);
 
-                ui.saidaFinal(notaFiscal, ui.semIcone);
+                // Saida
+                String saidaFinal = "Nota Fiscal\n\n"+"- Cliente"+"\nNome: "+notaFiscal.getCliente().getNome()+"\nEmail: "+notaFiscal.getCliente().getEmail()+"\n";
+                String saidaFinal2 = "\nValor a pagar: ";
+
+                ui.saida(saidaFinal, ui.semIcone);
+
+                for (Item item: notaFiscal.getItem()) {
+                
+                    ui.saida("\n\nNOME DO PRODUTO: "+ item.getNome(), ui.semIcone);
+                    ui.saida("\n\nPREÇO DO PRODUTO: "+ item.getPreco(), ui.semIcone);
+                }
+
+                ui.saida(saidaFinal2, ui.semIcone);
+
 
             }
 
